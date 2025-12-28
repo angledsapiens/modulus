@@ -1,0 +1,35 @@
+[
+  {
+    "ts": 1735523940000,
+    "chain": "sepolia",
+    "venue": "uniswap_v3",
+    "asset": "ETH/USDC",
+    "metrics": {
+      "liquidity_depth": 12430221,
+      "liquidity_elasticity": null,
+      "liquidity_fragmentation": 0.41
+    }
+  },
+  {
+    "ts": 1735524000000,
+    "chain": "sepolia",
+    "venue": "uniswap_v3",
+    "asset": "ETH/USDC",
+    "metrics": {
+      "liquidity_depth": 12418002,
+      "liquidity_elasticity": 0.27,
+      "liquidity_fragmentation": 0.39
+    }
+  },
+  {
+    "ts": 1735524060000,
+    "chain": "sepolia",
+    "venue": "uniswap_v3",
+    "asset": "ETH/USDC",
+    "metrics": {
+      "liquidity_depth": 12419011,
+      "liquidity_elasticity": null,
+      "liquidity_fragmentation": 0.38
+    }
+  }
+]

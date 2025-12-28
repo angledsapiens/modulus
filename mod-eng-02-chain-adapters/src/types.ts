@@ -6,7 +6,7 @@ export type TimestampMs = number;
 
 export interface CanonicalLiquidityLevel {
   price: number;
-  liquidity: number;
+  liquidity: bigint;
 }
 
 export interface CanonicalLiquiditySnapshot {

@@ -58,7 +58,7 @@ export async function fetchArbitrumUniswapV3Snapshot(
 
     levels.push({
       price: tickToPrice(tick),
-      liquidity: Number(activeLiquidity)
+      liquidity: activeLiquidity
     });
   }
 

@@ -47,7 +47,7 @@ export async function fetchOptimismUniswapV3Snapshot(
 
     levels.push({
       price: tickToPrice(tick),
-      liquidity: Number(activeLiquidity)
+      liquidity: activeLiquidity
     });
   }
 

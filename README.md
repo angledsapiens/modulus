@@ -1,53 +1,60 @@
-MODULUS
+# MODULUS
 
-Modulus measures how on-chain systems behave under state change.
+> **Modular observability for on-chain liquidity dynamics.**
 
-Modulus is a modular observability framework that captures, compares, and describes real-time dynamics of on-chain liquidity systems. It operates without prediction, scoring, or persistence.
+Modulus measures how on-chain systems behave under state change. It is a modular observability framework that captures, compares, and describes real-time dynamics of on-chain liquidity systems without prediction, scoring, or persistence.
 
-What Modulus Does v0
+---
 
-At each observation tick, Modulus fetches live on-chain state from supported chains and venues. It computes deterministic liquidity metrics and compares the current state against the previous observation. It emits raw metric values along with a short human-readable annotation describing what changed.
+## 🔍 What Modulus Does
+At each observation tick, Modulus:
+1. **Fetches** live on-chain state from supported chains and venues.
+2. **Computes** deterministic liquidity metrics.
+3. **Compares** the current state against the previous observation.
+4. **Emits** raw metric values and short human-readable annotations.
 
-All behavior is derived directly from on-chain data. There are no synthetic baselines, no alerts, and no interpretation layers in v0.
+*All behavior is derived directly from on-chain data. There are no synthetic baselines or interpretation layers in v0.*
 
-Core Metrics v0
+## 📊 Core Metrics (v0)
 
-Liquidity Depth represents total available liquidity near the active price.
+| Metric | Description |
+| :--- | :--- |
+| **Liquidity Depth** | Total available liquidity near the active price. |
+| **Liquidity Elasticity** | The response of liquidity to price movement between observations. |
+| **Liquidity Fragmentation** | The degree to which liquidity is distributed across discrete ranges. |
+| **Liquidity Degradation** | Qualitative system regimes derived from structural changes (e.g., `STABLE` or `STRESSED`). |
 
-Liquidity Elasticity represents the response of liquidity to price movement between consecutive observations. Elasticity is undefined when no price change occurs.
+---
 
-Liquidity Fragmentation represents the degree to which liquidity is distributed across discrete ranges.
+## 🛠 Architecture & Design
+Modulus processes data through live chains, chain adapters, a metrics engine, an integration runtime with ephemeral state, and a read-only dashboard.
 
-Liquidity Degradation represents a qualitative system regime derived from structural changes, such as STABLE or STRESSED.
+### Design Properties
+* **No Persistence:** v0 has no long-term storage and does not perform historical backfilling.
+* **Ephemeral Annotations:** Descriptions are derived only from consecutive observations and are discarded on process restart.
+* **Passive Monitoring:** The dashboard is strictly read-only; Modulus does not generate alerts or forecasts.
 
-Transition Annotations v0
+### Supported Networks (v0)
+* **Arbitrum** (Uniswap v3)
+* **Optimism** (Uniswap v3)
 
-In addition to raw metrics, Modulus v0 annotates each transition with a concise description of what changed between observations. These annotations are deterministic, ephemeral, derived only from consecutive observations, and discarded on process restart. They do not modify or reinterpret metrics.
+---
 
-Architecture Overview
+## 📦 Scope
 
-Modulus processes data through live chains, chain adapters, a metrics engine, an integration runtime with ephemeral state and annotations, and a read-only dashboard.
+| Included in v0 | Excluded (Future) |
+| :--- | :--- |
+| Live on-chain ingestion | Persistent storage |
+| Deterministic computation | Event replay |
+| Consecutive-state comparison | Alerting & Forecasting |
+| Dashboard | User-defined thresholds |
 
-Design Properties
+---
 
-Modulus v0 has no long-term storage. It does not perform historical backfilling. It does not generate predictions or alerts. The dashboard is strictly read-only and passive.
+## 🚀 Status: v0 Complete
+Modulus v0 provides a truthful, real-time view of on-chain system dynamics. It establishes a clean foundation for future versions that will introduce memory, event comparison, and long-horizon analysis.
 
-Supported Chains v0
+---
 
-Modulus v0 supports Arbitrum using Uniswap v3 and Optimism using Uniswap v3.
-
-v0 Scope
-
-Modulus v0 includes live on-chain ingestion, deterministic metric computation, consecutive-state comparison, transition annotation, and a human-readable dashboard.
-
-Modulus v0 excludes persistent storage, event replay, alerting, scoring, forecasting, and user-defined thresholds.
-
-Status
-
-v0 is complete.
-
-Modulus v0 provides a truthful, real-time view of on-chain system dynamics and establishes a clean foundation for future versions that introduce memory, event comparison, and long-horizon analysis.
-
-Looking Ahead
-
-Future versions may add persistent state storage, cross-event comparison, historical regime analysis, and user-defined system tracking. These are intentionally deferred to preserve clarity and correctness in v0.
+## ⌨️ Future Work
+Future versions may add persistent state storage and historical regime analysis.

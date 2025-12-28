@@ -1,12 +1,45 @@
 export type MetricSnapshot = {
-  ts: number;
   chain: string;
   venue: string;
   asset: string;
+  ts: number;
 
   metrics: {
-    liquidity_depth?: number;
-    liquidity_elasticity?: number; // may be NaN
-    liquidity_fragmentation?: number;
+    depth: {
+      meta: {
+        metric: string;
+        version: string;
+        computedAt: number;
+      };
+      depth: number;
+    };
+
+    elasticity: {
+      meta: {
+        metric: string;
+        version: string;
+        computedAt: number;
+      };
+      elasticity: number | null;
+    };
+
+    fragmentation: {
+      meta: {
+        metric: string;
+        version: string;
+        computedAt: number;
+      };
+      fragmentationIndex: number;
+    };
+
+    degradation?: {
+      meta: {
+        metric: string;
+        version: string;
+        computedAt: number;
+      };
+      slope: number;
+      state: string;
+    };
   };
 };

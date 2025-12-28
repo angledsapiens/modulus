@@ -2,8 +2,7 @@ import { useEffect, useState } from "react";
 import type { MetricSnapshot } from "./types/metrics";
 import { FileMetricSource } from "./sources/FileMetricSource";
 import Header from "./components/Header";
-import CurrentState from "./components/CurrentState";
-import MetricChart from "./components/MetricChart";
+import MetricStateCard from "./components/MetricStateCard";
 import Footer from "./components/Footer";
 import "./styles/app.css";
 
@@ -25,22 +24,25 @@ function App() {
   return (
     <div className="app">
       <Header snapshot={latest} />
-      <CurrentState snapshot={latest} />
-      <MetricChart
+
+      <MetricStateCard
         title="Liquidity Depth"
-        data={snapshots}
-        metricKey="liquidity_depth"
+        metric="depth"
+        snapshots={snapshots}
       />
-      <MetricChart
+
+      <MetricStateCard
         title="Liquidity Elasticity"
-        data={snapshots}
-        metricKey="liquidity_elasticity"
+        metric="elasticity"
+        snapshots={snapshots}
       />
-      <MetricChart
+
+      <MetricStateCard
         title="Liquidity Fragmentation"
-        data={snapshots}
-        metricKey="liquidity_fragmentation"
+        metric="fragmentation"
+        snapshots={snapshots}
       />
+
       <Footer />
     </div>
   );

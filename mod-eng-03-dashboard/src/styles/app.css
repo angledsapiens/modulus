@@ -24,3 +24,9 @@
   font-weight: 500;
   opacity: 0.85;
 }
+
+.annotation {
+  margin-top: 12px;
+  font-size: 12px;
+  color: #fff;
+}

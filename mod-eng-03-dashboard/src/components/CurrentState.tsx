@@ -5,37 +5,34 @@ type Props = {
 };
 
 export default function CurrentState({ snapshot }: Props) {
-  const m = snapshot.metrics;
+  const { chain, venue, asset, ts, metrics } = snapshot;
 
   return (
-    <section
-      style={{
-        display: "grid",
-        gridTemplateColumns: "repeat(3, 1fr)",
-        gap: "24px",
-        marginBottom: "40px"
-      }}
-    >
-      <div>
-        <div style={{ opacity: 0.6 }}>Liquidity Depth</div>
-        <div>{m.liquidity_depth}</div>
+    <section className="card">
+      <h2>
+        {chain} · {venue} · {asset}
+      </h2>
+
+      <div className="meta">
+        Last update: {new Date(ts).toUTCString()}
       </div>
 
-      <div>
-        <div style={{ opacity: 0.6 }}>Liquidity Elasticity</div>
-        <div>
-          {Number.isNaN(m.liquidity_elasticity)
-            ? "NaN"
-            : m.liquidity_elasticity}
-        </div>
-      </div>
+      <ul className="metrics">
+        <li>
+          <strong>Liquidity Depth:</strong>{" "}
+          {metrics.depth.depth.toLocaleString()}
+        </li>
 
-      <div>
-        <div style={{ opacity: 0.6 }}>
-          Liquidity Fragmentation
-        </div>
-        <div>{m.liquidity_fragmentation}</div>
-      </div>
+        <li>
+          <strong>Liquidity Elasticity:</strong>{" "}
+          {metrics.elasticity.elasticity ?? "—"}
+        </li>
+
+        <li>
+          <strong>Liquidity Fragmentation:</strong>{" "}
+          {metrics.fragmentation.fragmentationIndex.toFixed(3)}
+        </li>
+      </ul>
     </section>
   );
 }

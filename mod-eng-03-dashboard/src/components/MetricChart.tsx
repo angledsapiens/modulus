@@ -8,18 +8,40 @@ import {
 } from "recharts";
 import type { MetricSnapshot } from "../types/metrics";
 
+type MetricKey =
+  | "depth"
+  | "elasticity"
+  | "fragmentation";
+
 type Props = {
   title: string;
   data: MetricSnapshot[];
-  metricKey: keyof MetricSnapshot["metrics"];
+  metricKey: MetricKey;
 };
 
 export default function MetricChart({ title, data, metricKey }: Props) {
   const chartData = data.map((s) => {
-    const raw = s.metrics[metricKey];
+    let value: number | null = null;
+
+    const m = s.metrics;
+
+    switch (metricKey) {
+      case "depth":
+        value = m.depth?.depth ?? null;
+        break;
+
+      case "elasticity":
+        value = m.elasticity?.elasticity ?? null;
+        break;
+
+      case "fragmentation":
+        value = m.fragmentation?.fragmentationIndex ?? null;
+        break;
+    }
+
     return {
       ts: s.ts,
-      value: raw === null ? NaN : raw
+      value
     };
   });
 
@@ -39,9 +61,7 @@ export default function MetricChart({ title, data, metricKey }: Props) {
             }
           />
           <YAxis />
-          <Tooltip
-            labelFormatter={(t) => new Date(t).toUTCString()}
-          />
+          <Tooltip labelFormatter={(t) => new Date(t).toUTCString()} />
           <Line
             type="linear"
             dataKey="value"

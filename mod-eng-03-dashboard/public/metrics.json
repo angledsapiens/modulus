@@ -1,35 +1,45 @@
-[
-  {
-    "ts": 1735523940000,
-    "chain": "sepolia",
-    "venue": "uniswap_v3",
-    "asset": "ETH/USDC",
-    "metrics": {
-      "liquidity_depth": 12430221,
-      "liquidity_elasticity": null,
-      "liquidity_fragmentation": 0.41
+{
+  "chain": "arbitrum",
+  "venue": "uniswap-v3",
+  "asset": "ETH/USDC",
+  "ts": 1766963391000,
+  "metrics": {
+    "depth": {
+      "meta": {
+        "metric": "liquidity_depth",
+        "version": "v0",
+        "computedAt": 1766963398666
+      },
+      "depth": 145290489581878480000
+    },
+    "elasticity": {
+      "meta": {
+        "metric": "liquidity_elasticity",
+        "version": "v0",
+        "computedAt": 1766963398666
+      },
+      "elasticity": 0
+    },
+    "fragmentation": {
+      "meta": {
+        "metric": "liquidity_fragmentation",
+        "version": "v0",
+        "computedAt": 1766963398666
+      },
+      "fragmentationIndex": 0.9523809523809523
+    },
+    "degradation": {
+      "meta": {
+        "metric": "liquidity_degradation",
+        "version": "v0",
+        "computedAt": 1766963398666
+      },
+      "slope": 0,
+      "state": "STABLE"
     }
   },
-  {
-    "ts": 1735524000000,
-    "chain": "sepolia",
-    "venue": "uniswap_v3",
-    "asset": "ETH/USDC",
-    "metrics": {
-      "liquidity_depth": 12418002,
-      "liquidity_elasticity": 0.27,
-      "liquidity_fragmentation": 0.39
-    }
-  },
-  {
-    "ts": 1735524060000,
-    "chain": "sepolia",
-    "venue": "uniswap_v3",
-    "asset": "ETH/USDC",
-    "metrics": {
-      "liquidity_depth": 12419011,
-      "liquidity_elasticity": null,
-      "liquidity_fragmentation": 0.38
-    }
+  "annotation": {
+    "type": "NO_SIGNIFICANT_CHANGE",
+    "summary": "No meaningful structural change detected."
   }
-]
+}

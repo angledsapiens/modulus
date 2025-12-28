@@ -17,12 +17,25 @@ import { computeLiquidityDegradationTrend } from "../../../mod-eng-01-metrics/sr
 
 import { MetricMeta } from "../../../mod-eng-01-metrics/src/types";
 
+import {
+  makeSnapshotKey,
+  getPreviousSnapshot,
+  setPreviousSnapshot
+} from "./state";
+
 function buildMeta(metric: string): MetricMeta {
   return {
     metric,
     version: "v0",
     computedAt: Date.now()
   };
+}
+
+function computeMidPrice(snapshot: LiquiditySnapshot): number {
+  const levels = snapshot.levels;
+  if (levels.length === 0) return NaN;
+  const mid = Math.floor(levels.length / 2);
+  return levels[mid].price;
 }
 
 /**
@@ -68,12 +81,61 @@ export function runMetrics(snapshot: CanonicalLiquiditySnapshot) {
     snapshot: adapted
   };
 
-  const elasticityInput: LiquidityElasticityInput = {
-    context,
-    before: adapted,
-    after: adapted,
-    priceShockPct: 0
-  };
+  const key = makeSnapshotKey(snapshot);
+  const prev = getPreviousSnapshot(key);
+
+  const adaptedCurrent = adapted;
+  const adaptedPrev = prev ? adaptSnapshot(prev) : undefined;
+
+  let elasticity;
+
+  if (!adaptedPrev) {
+    elasticity = computeLiquidityElasticity(
+      {
+        context,
+        before: adaptedCurrent,
+        after: adaptedCurrent,
+        priceShockPct: 0
+      },
+      buildMeta("liquidity_elasticity")
+    );
+  } else {
+    const prevPrice = computeMidPrice(adaptedPrev);
+    const currPrice = computeMidPrice(adaptedCurrent);
+
+    const rawShock =
+      prevPrice > 0
+        ? (currPrice - prevPrice) / prevPrice
+        : NaN;
+
+    // Guard: zero or near-zero price movement → undefined elasticity
+    const priceShockPct =
+      Number.isFinite(rawShock) && Math.abs(rawShock) > 1e-12
+        ? rawShock
+        : NaN;
+
+    if (!Number.isFinite(priceShockPct)) {
+      elasticity = computeLiquidityElasticity(
+        {
+          context,
+          before: adaptedCurrent,
+          after: adaptedCurrent,
+          priceShockPct: 0
+        },
+        buildMeta("liquidity_elasticity")
+      );
+    } else {
+      elasticity = computeLiquidityElasticity(
+        {
+          context,
+          before: adaptedPrev,
+          after: adaptedCurrent,
+          priceShockPct
+        },
+        buildMeta("liquidity_elasticity")
+      );
+    }
+  }
 
   const degradationInput: LiquidityDegradationTrendInput = {
     context,
@@ -81,16 +143,15 @@ export function runMetrics(snapshot: CanonicalLiquiditySnapshot) {
     windowSize: 1
   };
 
+  setPreviousSnapshot(key, snapshot);
+
   return {
     depth: computeLiquidityDepth(
       depthInput,
       buildMeta("liquidity_depth")
     ),
 
-    elasticity: computeLiquidityElasticity(
-      elasticityInput,
-      buildMeta("liquidity_elasticity")
-    ),
+    elasticity,
 
     fragmentation: computeLiquidityFragmentation(
       fragmentationInput,

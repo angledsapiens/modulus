@@ -32,7 +32,7 @@ export async function fetchAvalancheUniswapV3Snapshot(
     pool.tickSpacing()
   ]);
 
-  const currentTick: number = slot0.tick;
+  const currentTick = Number(slot0.tick);
   const spacing: number = Number(tickSpacing);
 
   const lowerTick = currentTick - spacing * TICK_WINDOW_MULTIPLIER;

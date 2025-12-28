@@ -41,8 +41,8 @@ export async function fetchArbitrumUniswapV3Snapshot(
     pool.tickSpacing()
   ]);
 
-  const currentTick: number = slot0.tick;
-  const spacing: number = Number(tickSpacing);
+  const currentTick = Number(slot0.tick);
+  const spacing = Number(tickSpacing);
 
   const lowerTick = currentTick - spacing * TICK_WINDOW_MULTIPLIER;
   const upperTick = currentTick + spacing * TICK_WINDOW_MULTIPLIER;

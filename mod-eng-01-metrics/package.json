@@ -1,0 +1,15 @@
+{
+  "name": "@modulus/metrics-engine",
+  "version": "0.0.0",
+  "private": true,
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "build": "tsc",
+    "test": "ts-node tests/run.ts"
+  },
+  "devDependencies": {
+    "typescript": "^5.9.0",
+    "ts-node": "^10.9.2"
+  }
+}

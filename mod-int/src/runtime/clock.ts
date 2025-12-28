@@ -2,6 +2,7 @@ import { RuntimeConfig } from "./config";
 import { fetchSnapshot } from "./adapterFactory";
 import { runMetrics } from "./metrics";
 import { emit } from "../outputs/stdout";
+import { emitMetricsToFile } from "../outputs/file";
 
 export function startClock() {
   console.log(
@@ -22,6 +23,14 @@ async function tick() {
     const metrics = runMetrics(snapshot);
 
     emit("metrics", {
+      chain: snapshot.chain,
+      venue: snapshot.venue,
+      asset: snapshot.asset,
+      ts: snapshot.ts,
+      metrics
+    });
+
+    emitMetricsToFile({
       chain: snapshot.chain,
       venue: snapshot.venue,
       asset: snapshot.asset,

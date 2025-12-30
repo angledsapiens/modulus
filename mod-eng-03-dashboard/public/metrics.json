@@ -2,37 +2,37 @@
   "chain": "arbitrum",
   "venue": "uniswap-v3",
   "asset": "ETH/USDC",
-  "ts": 1766963391000,
+  "ts": 1767096969000,
   "metrics": {
     "depth": {
       "meta": {
         "metric": "liquidity_depth",
         "version": "v0",
-        "computedAt": 1766963398666
+        "computedAt": 1767096982568
       },
-      "depth": 145290489581878480000
+      "depth": 152579899096209820000
     },
     "elasticity": {
       "meta": {
         "metric": "liquidity_elasticity",
         "version": "v0",
-        "computedAt": 1766963398666
+        "computedAt": 1767096982568
       },
-      "elasticity": 0
+      "elasticity": null
     },
     "fragmentation": {
       "meta": {
         "metric": "liquidity_fragmentation",
         "version": "v0",
-        "computedAt": 1766963398666
+        "computedAt": 1767096982568
       },
-      "fragmentationIndex": 0.9523809523809523
+      "fragmentationIndex": 0.9523809523809524
     },
     "degradation": {
       "meta": {
         "metric": "liquidity_degradation",
         "version": "v0",
-        "computedAt": 1766963398666
+        "computedAt": 1767096982568
       },
       "slope": 0,
       "state": "STABLE"
